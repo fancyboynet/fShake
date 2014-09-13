@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摇一摇应用之简易拔河游戏</title>
+</head>
+<body style="padding: 100px 0 0;">
+    <h1>绿条占满横条为胜，手机摇的越快，涨的越快</h1>
+    <p style="color: red" id="tips"></p>
+    <div style="background:red;position: relative;margin: 0 10px;height: 20px;">
+        <div style="position: absolute;top:0;left: 0;background: lime;width: 50%;height: 100%;text-align: right" id="progress">
+            <div style="color: black;font-size: 40px;margin: -12px -8px 0 0;">I</div>
+        </div>
+    </div>
+    <script src="../fshake.min.js"></script>
+    <script>
+        var progress = document.getElementById('progress');
+        var tips = document.getElementById('tips');
+        var delay;
+        var count = 0;
+        var playCount = 3;
+        var increase = function(){
+            if(count === playCount){
+                count = 0;
+                percent = Math.min(100, percent + 3);
+                update();
+                if(percent === 100){
+                    tips.innerHTML = '你赢了';
+                    clearTimeout(delay);
+                    return false;
+                }
+            }
+        };
+        var percent = 50;
+        var update = function(){
+            progress.style.width = percent + "%";
+        };
+        var decrease = function(){
+            if(percent === 0){
+                tips.innerHTML = '你输了';
+                return;
+            }
+            percent = Math.max(0, percent - 0.5);
+            update();
+            delay = setTimeout(decrease, 500);
+        };
+        decrease();
+        fShake({
+            acceleration : 18,
+            onShake : function(){
+                count++;
+                return increase();
+            },
+            onNotSupport : function(){
+                tips.innerHTML = '您的浏览器不支持摇一摇功能';
+            },
+            debug : true
+        });
+    </script>
+</body>
+</html>

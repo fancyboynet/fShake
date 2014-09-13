@@ -1,6 +1,6 @@
 {
   "name": "f-shake",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "authors": [
     "fancy <fancyboynet@gmail.com>"
   ],
@@ -14,5 +14,5 @@
     "html5"
   ],
   "license": "MIT",
-  "homepage": "http://fancyboy.net/"
+  "homepage": "https://github.com/fancyboynet/fShake"
 }
